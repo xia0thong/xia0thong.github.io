@@ -265,7 +265,6 @@
   <button class="backtop" id="backtop" aria-label="Back to top">↑</button>
 
   <script>
-    /* ========= utilities ========= */
     const $=(s,e=document)=>e.querySelector(s); const $$=(s,e=document)=>Array.from(e.querySelectorAll(s));
 
     // load an image by trying several candidate URLs (first that loads wins)
@@ -296,7 +295,7 @@
     const backtop=$('#backtop'); window.addEventListener('scroll',()=> backtop.classList.toggle('show',window.scrollY>600));
     backtop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-    /* ========= ABOUT carousel ========= */
+    /* ========= ABOUT ========= */
     const PHOTO_BASE='Image/';
     const photos=['justin1.jpg','justin2.jpg','justin3.jpg','justin4.jpg','justin5.jpg','justin6.jpg'];
 
@@ -327,7 +326,7 @@
     carousel.addEventListener('mouseleave',()=>{autoSlide=setInterval(()=>nextBtn.click(),5000);});
 
     /* ========= Album cover loader ========= */
-    const COVER_BASE='Image/';                   // folder with album covers
+    const COVER_BASE='Image/'; 
     const coverFiles={Believe:'believe',Purpose:'purpose',Changes:'changes',Justice:'justice'};
     const coverExts=['jpg','jpeg','png','webp'];
     document.querySelectorAll('.card.album').forEach(card=>{
