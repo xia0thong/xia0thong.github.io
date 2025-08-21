@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Belieber HQ — Justin Bieber Fan Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b10;--surface:#171724;--text:#e9e9f1;--muted:#b9b9c7;
+      --brand:#a78bfa;--brand-2:#f472b6;--accent:#60a5fa;
+      --card:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      --radius-2xl:24px;--shadow:0 10px 30px rgba(0,0,0,.35);
+      --border-dark:rgba(255,255,255,.18);--border-subtle:rgba(255,255,255,.10);
+    }
+    .light{
+      --bg:#fbfbfe;--surface:#fff;--text:#111114;--muted:#3d3d4a;
+      --card:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.02));
+      --shadow:0 10px 28px rgba(0,0,0,.12);
+      --border-dark:rgba(0,0,0,.18);--border-subtle:rgba(0,0,0,.10);
+    }
+
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(167,139,250,.25), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(244,114,182,.18), transparent 55%),
+        var(--bg);
+      color:var(--text);line-height:1.6;scroll-behavior:smooth;
+    }
+    .container{max-width:1280px;margin:0 auto;padding:0 1.25rem}
+    .skip{position:absolute;left:-9999px} .skip:focus{left:1rem;top:1rem;padding:.6rem .9rem;background:var(--surface);border-radius:10px;box-shadow:var(--shadow)}
+
+    /* Top bar */
+    nav.topbar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:rgba(10,10,15,.45);border-bottom:1px solid rgba(255,255,255,.08)}
+    .light nav.topbar{background:rgba(255,255,255,.7);border-bottom-color:rgba(0,0,0,.06)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:64px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.3px}
+    .brand .logo{
+      width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;font-weight:800;font-size:.8rem;line-height:1;box-shadow:inset 0 1px 3px rgba(255,255,255,.3), 0 6px 12px rgba(167,139,250,.35)
+    }
+    .nav-links{display:flex;gap:1rem;flex-wrap:wrap}
+    .nav-links a{text-decoration:none;color:var(--text);padding:.5rem .7rem;border-radius:10px}
+    .nav-links a.active,.nav-links a:hover{background:rgba(255,255,255,.08)}
+    .toggle{
+      display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border-radius:999px;
+      background:var(--surface);color:var(--text);border:1px solid var(--border-dark);box-shadow:var(--shadow);cursor:pointer
+    }
+    .toggle svg{width:18px;height:18px}
+
+    /* Hero */
+    header.hero{padding:6rem 1.25rem 4rem;background:
+      radial-gradient(1200px 500px at 20% -10%, rgba(96,165,250,.18), transparent 65%),
+      linear-gradient(180deg, rgba(167,139,250,.16), transparent 40%),
+      linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));}
+    .hero h1{font-size:clamp(2rem,6vw,4rem);margin:0 0 .5rem}
+    .hero .lede{font-size:clamp(1rem,2.2vw,1.25rem);color:var(--muted)}
+    .cta{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.1rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;text-decoration:none;font-weight:600;box-shadow:0 10px 24px rgba(167,139,250,.35)}
+    .cta.secondary{background:var(--surface);color:var(--text);border:1px solid var(--border-subtle);box-shadow:var(--shadow)}
+    .badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin-top:1.2rem;max-width:640px}
+    .badge{padding:.5rem .7rem;border-radius:999px;background:var(--surface);border:1px solid var(--border-subtle);text-align:center;font-size:.875rem;color:var(--muted)}
+    section{padding:3.5rem 0} h2{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 1rem} .section-note{color:var(--muted);margin-top:-.3rem}
+
+    /* About */
+    .about{display:flex;gap:1.5rem;align-items:stretch}
+    .about .card{
+      flex:1;background:var(--card);border:1px solid var(--border-subtle);
+      border-radius:var(--radius-2xl);padding:1.2rem 1.25rem;box-shadow:var(--shadow);
+      display:flex;flex-direction:column;justify-content:center
+    }
+
+    .carousel{position:relative;border-radius:var(--radius-2xl);overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.1)}
+    .carousel img{width:100%;height:480px;object-fit:cover;display:block}
+    .carousel .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.55rem .75rem;cursor:pointer;z-index:3}
+    .carousel .prev{left:.6rem} .carousel .next{right:.6rem}
+    .carousel .dots{
+      position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+      display:flex;gap:8px;padding:6px 10px;background:rgba(0,0,0,.25);border-radius:999px;z-index:3
+    }
+    .carousel .dot{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.45);cursor:pointer;appearance:none;-webkit-appearance:none}
+    .carousel .dot.active{background:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28) inset}
+
+    /* Music (albums only — no search) */
+    .music .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem}
+    .card.album{position:relative;overflow:hidden;padding:1.1rem;border-radius:var(--radius-2xl);background:var(--card);border:1px solid var(--border-subtle);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.7rem}
+    .album .cover{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-radius:14px;border:1px solid var(--border-subtle)}
+    .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.9rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .6rem;border-radius:999px;background:rgba(255,255,255,.08)}
+    .track-table{width:100%;border-collapse:collapse;table-layout:auto}
+    .track-table th,.track-table td{padding:.6rem .6rem;border-bottom:1px solid rgba(255,255,255,.12)}
+    .track-table th{text-align:left;font-size:.95rem;color:var(--muted);font-weight:700}
+    .track-table th:first-child{width:48%}
+    .track-table td.title{white-space:normal;word-break:keep-all;hyphens:auto}
+    .track-table td.actions{white-space:nowrap;text-align:center}
+    .track-table th.likecol,.track-table td.likecol{text-align:center;width:110px}
+    .iconbtn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:var(--surface);color:var(--text);text-decoration:none;font-weight:600;cursor:pointer}
+    .iconbtn.sm{padding:.35rem .55rem;font-size:.85rem}
+    .heartbtn{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;border-radius:999px;border:1px solid var(--border-subtle);background:var(--surface);color:var(--text);cursor:pointer;font-weight:700}
+    .heartbtn:active{transform:translateY(1px)}
+
+    /* Tour */
+    .tour .controls{display:flex;gap:.6rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+    .tour input,.tour select{padding:.6rem .7rem;border-radius:10px;background:var(--surface);color:var(--text);border:1px solid var(--border-subtle)}
+    .tour .list{display:grid;gap:.7rem}
+    .tour .item{display:grid;grid-template-columns:1.2fr 1fr auto;gap:.6rem;align-items:center;padding:.8rem;border-radius:14px;background:var(--card);border:1px solid var(--border-subtle)}
+    .calbtn{padding:.5rem .9rem;border-radius:12px;border:1px solid var(--border-dark);background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(167,139,250,.35)}
+    .ticket-link{color:#4da6ff;font-weight:600;text-decoration:none}
+    .ticket-link:hover{text-decoration:underline}
+
+    /* Newsletter & notes */
+    .newsletter .wrap{margin:.4rem 0 1rem;padding:1rem;background:var(--card);border:1px solid var(--border-subtle);border-radius:var(--radius-2xl);box-shadow:var(--shadow)}
+    #newsletterForm{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.6rem}
+    #newsletterForm input[type="email"]{flex:1 1 260px;min-width:260px;padding:.7rem .9rem;border-radius:12px;background:var(--surface);color:var(--text);border:1px solid var(--border-subtle)}
+    #newsletterForm button{padding:.7rem 1rem;border-radius:12px;border:1px solid var(--border-dark);background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(167,139,250,.35)}
+    #notes{display:grid;gap:.6rem;margin-top:.6rem}
+    .note{padding:.7rem .85rem;border-radius:14px;background:var(--surface);border:1px solid var(--border-subtle)}
+    .note .name{font-weight:800} .note .ts{color:var(--muted);font-size:.86rem} .note .msg{margin-top:.35rem}
+
+    footer{padding:2rem 0 4rem;color:var(--muted);text-align:center}
+    .backtop{position:fixed;right:1rem;bottom:1rem;padding:.6rem .8rem;border-radius:999px;background:var(--surface);border:1px solid rgba(255,255,255,.15);box-shadow:var(--shadow);cursor:pointer;display:none}
+    .backtop.show{display:block}
+
+    @media (max-width:920px){.about{flex-direction:column}.tour .item{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <nav class="topbar" aria-label="Primary">
+    <div class="container nav-inner">
+      <div class="brand"><div class="logo" aria-label="JB">JB</div><span>Belieber HQ</span></div>
+      <div class="nav-links">
+        <a href="#about" class="active">About</a>
+        <a href="#music">Music</a>
+        <a href="#tour">Tour</a>
+        <a href="#join">Join</a>
+      </div>
+      <button class="toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Theme</span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Justin Bieber Fan Page</h1>
+      <p class="lede">Welcome to a minimalist, fast fan hub for news, music, and moments.</p>
+      <div class="actions">
+        <a href="#music" class="cta">Listen & Explore</a>
+        <a href="#tour" class="cta secondary">Find Tour Info</a>
+      </div>
+      <div class="badges" aria-hidden="true">
+        <div class="badge">#Belieber 💜</div><div class="badge">He's the best!</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Justin Bieber</h2>
+      <p class="section-note">Quick facts. Fan-made; not affiliated.</p>
+      <div class="about">
+        <div class="card">
+          <p>Justin Bieber (born March 1, 1994) is a Canadian singer who broke through globally with his debut studio album <em>My World 2.0</em> (2010) and its hit single “Baby.” Subsequent albums include <em>Believe</em> (2012), <em>Purpose</em> (2015), <em>Changes</em> (2020), and <em>Justice</em> (2021).</p>
+          <p>He’s known for pop and R&B across collaborations and solo hits like “Sorry,” “Love Yourself,” and “Peaches.”</p>
+        </div>
+        <div class="carousel" aria-label="About photos">
+          <button class="arrow prev" id="aboutPrev" aria-label="Previous photo">‹</button>
+          <img id="aboutPhoto" alt="Justin Bieber photo"/>
+          <button class="arrow next" id="aboutNext" aria-label="Next photo">›</button>
+          <div class="dots" id="aboutDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music" class="music">
+      <h2>Music</h2>
+      <p class="section-note">There are nice songs. Please listen to them!</p>
+
+      <div class="grid" id="albumGrid">
+        <article class="card album" data-album="Believe">
+          <img class="cover" alt="Believe album cover">
+          <div class="meta"><span>2012</span><span class="pill">Pop</span></div>
+          <table class="track-table" aria-label="Believe songs">
+            <thead><tr><th>Song</th><th>Spotify</th><th>YouTube</th><th class="likecol">♥</th></tr></thead>
+            <tbody id="tbl-believe"></tbody>
+          </table>
+        </article>
+
+        <article class="card album" data-album="Purpose">
+          <img class="cover" alt="Purpose album cover">
+          <div class="meta"><span>2015</span><span class="pill">Pop · EDM</span></div>
+          <table class="track-table" aria-label="Purpose songs">
+            <thead><tr><th>Song</th><th>Spotify</th><th>YouTube</th><th class="likecol">♥</th></tr></thead>
+            <tbody id="tbl-purpose"></tbody>
+          </table>
+        </article>
+
+        <article class="card album" data-album="Changes">
+          <img class="cover" alt="Changes album cover">
+          <div class="meta"><span>2020</span><span class="pill">R&B</span></div>
+          <table class="track-table" aria-label="Changes songs">
+            <thead><tr><th>Song</th><th>Spotify</th><th>YouTube</th><th class="likecol">♥</th></tr></thead>
+            <tbody id="tbl-changes"></tbody>
+          </table>
+        </article>
+
+        <article class="card album" data-album="Justice">
+          <img class="cover" alt="Justice album cover">
+          <div class="meta"><span>2021</span><span class="pill">Pop</span></div>
+          <table class="track-table" aria-label="Justice songs">
+            <thead><tr><th>Song</th><th>Spotify</th><th>YouTube</th><th class="likecol">♥</th></tr></thead>
+            <tbody id="tbl-justice"></tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <!-- TOUR -->
+    <section id="tour" class="tour">
+      <h2>Tour (Demo Data)</h2>
+      <p class="section-note">For real dates, check <a href="https://www.ticketmaster.com/justin-bieber-tickets/artist/1369961?msockid=0ef5261022ef6dbd35e1337f23b56c1e" target="_blank" class="ticket-link">ticketing</a>.</p>
+      <div class="controls">
+        <input id="searchCity" type="search" placeholder="Search city…"/>
+        <select id="sortBy">
+          <option value="date">Sort by date</option>
+          <option value="city">Sort by city</option>
+        </select>
+      </div>
+      <div class="list" id="tourList" aria-live="polite"></div>
+    </section>
+
+    <!-- JOIN -->
+    <section id="join" class="newsletter">
+      <h2>Join the Newsletter</h2>
+      <div class="wrap">
+        <p>Get fan updates and new drops.</p>
+        <form id="newsletterForm" novalidate>
+          <input type="email" id="email" placeholder="your@email.com" required />
+          <button type="submit">Join</button>
+        </form>
+      </div>
+
+      <div class="guestbook" aria-live="polite">
+        <h3>Guestbook</h3>
+        <form id="noteForm" style="display:flex; gap:.6rem; flex-wrap:wrap;">
+          <input type="text" id="name" placeholder="Name (optional)" style="flex:1 1 200px; padding:.6rem .7rem; border-radius:12px; background: var(--surface); color:var(--text); border:1px solid var(--border-subtle);"/>
+          <input type="text" id="message" placeholder="Leave a note…" style="flex:2 1 280px; padding:.6rem .7rem; border-radius:12px; background: var(--surface); color:var(--text); border:1px solid var(--border-subtle);" required />
+          <button class="iconbtn" type="submit">Post</button>
+        </form>
+        <div id="notes"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container"><p style="color:var(--muted)">Fan-made prototype. © <span id="year"></span></p></footer>
+  <button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+
+  <script>
+    /* ========= utilities ========= */
+    const $=(s,e=document)=>e.querySelector(s); const $$=(s,e=document)=>Array.from(e.querySelectorAll(s));
+
+    // load an image by trying several candidate URLs (first that loads wins)
+    function loadWithFallback(imgEl, candidates){
+      let i = 0;
+      (function next(){
+        if(i >= candidates.length){ console.warn('Image not found:', candidates); imgEl.removeAttribute('src'); return; }
+        const url = candidates[i++], probe = new Image();
+        probe.onload  = ()=>{ imgEl.src = url; };
+        probe.onerror = next;
+        probe.src = url;
+      })();
+    }
+
+    /* ========= theme & nav ========= */
+    const themeToggle=$('#themeToggle'); const saved=localStorage.getItem('theme');
+    if(saved==='light') document.body.classList.add('light');
+    themeToggle.addEventListener('click',()=>{document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');});
+
+    ['about','music','tour','join'].forEach(id=>{
+      const el=document.getElementById(id); if(!el) return;
+      new IntersectionObserver(es=>es.forEach(en=>{
+        if(en.isIntersecting) $$('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+      }),{rootMargin:'-60% 0px -35% 0px'}).observe(el);
+    });
+
+    $('#year').textContent=new Date().getFullYear();
+    const backtop=$('#backtop'); window.addEventListener('scroll',()=> backtop.classList.toggle('show',window.scrollY>600));
+    backtop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    /* ========= ABOUT carousel ========= */
+    const PHOTO_BASE='Image/';
+    const photos=['justin1.jpg','justin2.jpg','justin3.jpg','justin4.jpg','justin5.jpg','justin6.jpg'];
+
+    function candidatesFromBase(base, filePath){
+      const raw=(base+filePath).replace(/\\/g,'/'); const enc=raw.replace(/ /g,'%20');
+      return [enc,'./'+enc,'/'+enc,raw,'./'+raw,'/'+raw];
+    }
+
+    const img=$('#aboutPhoto'),prev=$('#aboutPrev'),nextBtn=$('#aboutNext'),dotsEl=$('#aboutDots');
+    let idx=0;
+
+    function renderDots(){
+      dotsEl.innerHTML=photos.map((_,i)=>`<button type="button" class="dot${i===idx?' active':''}" data-i="${i}" aria-label="Photo ${i+1}"></button>`).join('');
+    }
+    function setActiveDot(){ $$('.dot',dotsEl).forEach((d,i)=>d.classList.toggle('active',i===idx)); }
+    function renderSlide(){ loadWithFallback(img, candidatesFromBase(PHOTO_BASE, photos[idx])); setActiveDot(); }
+
+    dotsEl.addEventListener('click',e=>{const b=e.target.closest('.dot'); if(!b) return; idx=+b.dataset.i; renderSlide();});
+    prev.onclick=()=>{idx=(idx-1+photos.length)%photos.length; renderSlide();};
+    nextBtn.onclick=()=>{idx=(idx+1)%photos.length; renderSlide();};
+    document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev.click(); if(e.key==='ArrowRight')nextBtn.click();});
+
+    renderDots(); renderSlide();
+
+    let autoSlide=setInterval(()=>nextBtn.click(),5000);
+    const carousel=$('.carousel');
+    carousel.addEventListener('mouseenter',()=>clearInterval(autoSlide));
+    carousel.addEventListener('mouseleave',()=>{autoSlide=setInterval(()=>nextBtn.click(),5000);});
+
+    /* ========= Album cover loader ========= */
+    const COVER_BASE='Image/';                   // folder with album covers
+    const coverFiles={Believe:'believe',Purpose:'purpose',Changes:'changes',Justice:'justice'};
+    const coverExts=['jpg','jpeg','png','webp'];
+    document.querySelectorAll('.card.album').forEach(card=>{
+      const album=card.dataset.album, img=card.querySelector('img.cover'), base=coverFiles[album];
+      if(!img || !base) return;
+      const urls=[];
+      coverExts.forEach(ext=>{
+        const p=`${COVER_BASE}${base}.${ext}`; urls.push(p,`./${p}`,`/${p}`);
+      });
+      loadWithFallback(img, urls);
+    });
+
+    /* ========= MUSIC data + likes ========= */
+    const albumSongs={
+      "Believe":["Boyfriend","As Long As You Love Me","Beauty and a Beat"],
+      "Purpose":["Sorry","Love Yourself","What Do You Mean?"],
+      "Changes":["Yummy","Intentions","Changes"],
+      "Justice":["Peaches","Hold On","Anyone"]
+    };
+    const yt=new Map(Object.entries({
+      "boyfriend":"https://www.youtube.com/watch?v=4GuqB1BQVr4&list=RD4GuqB1BQVr4&start_radio=1",
+      "as long as you love me":"https://www.youtube.com/watch?v=R4em3LKQCAQ&list=RDR4em3LKQCAQ&start_radio=1",
+      "beaty and a beat":"https://www.youtube.com/watch?v=Ys7-6_t7OEQ&list=RDYs7-6_t7OEQ&start_radio=1",
+      "sorry":"https://www.youtube.com/watch?v=fRh_vgS2dFE&list=RDfRh_vgS2dFE&start_radio=1",
+      "love yourself":"https://www.youtube.com/watch?v=oyEuk8j8imI&list=RDoyEuk8j8imI&start_radio=1",
+      "what do you mean?":"https://www.youtube.com/watch?v=DK_0jXPuIr0&list=RDDK_0jXPuIr0&start_radio=1",
+      "yummy":"https://www.youtube.com/watch?v=8EJ3zbKTWQ8&list=RD8EJ3zbKTWQ8&start_radio=1",
+      "intentions":"https://www.youtube.com/watch?v=9p2wMpVVtXg&list=RD9p2wMpVVtXg&start_radio=1",
+      "changes":"https://www.youtube.com/watch?v=AUnypjWNa7Q&list=RDAUnypjWNa7Q&start_radio=1",
+      "peaches":"https://www.youtube.com/watch?v=tQ0yjYUFKAE&list=RDtQ0yjYUFKAE&start_radio=1",
+      "hold on":"https://www.youtube.com/watch?v=LWeiydKl0mU&list=RDLWeiydKl0mU&start_radio=1",
+      "anyone":"https://www.youtube.com/watch?v=KIK3azN4w34&list=RDKIK3azN4w34&start_radio=1"
+    }));
+    const sp=t=>`https://open.spotify.com/search/${encodeURIComponent('Justin Bieber '+t)}`;
+    const ytUrl=t=>yt.get(t.toLowerCase())||`https://www.youtube.com/results?search_query=${encodeURIComponent('Justin Bieber '+t)}`;
+    const likeKey='belieber_song_counts_v1'; const likes=JSON.parse(localStorage.getItem(likeKey)||'{}');
+    const key=(al,t)=>`${al}|${t}`;
+    const heartBtn=(al,t)=>{const k=key(al,t); const b=document.createElement('button'); b.className='heartbtn'; b.textContent=`❤️ ${likes[k]||0}`; let lock=false; b.onclick=()=>{if(lock) return; lock=true; likes[k]=(likes[k]||0)+1; localStorage.setItem(likeKey,JSON.stringify(likes)); b.textContent=`❤️ ${likes[k]}`; setTimeout(()=>lock=false,120)}; return b;};
+
+    function fill(album,tbodyId){
+      const tb=document.getElementById(tbodyId); tb.innerHTML='';
+      albumSongs[album].forEach(t=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td class="title">${t}</td>
+          <td class="actions"><a class="iconbtn sm" href="${sp(t)}" target="_blank" rel="noopener">Spotify</a></td>
+          <td class="actions"><a class="iconbtn sm" href="${ytUrl(t)}" target="_blank" rel="noopener">YouTube</a></td>
+          <td class="actions likecol"></td>`;
+        tr.lastElementChild.appendChild(heartBtn(album,t));
+        tb.appendChild(tr);
+      });
+    }
+    fill('Believe','tbl-believe'); fill('Purpose','tbl-purpose'); fill('Changes','tbl-changes'); fill('Justice','tbl-justice');
+
+    /* ========= TOUR demo ========= */
+    const tours=[{date:'2025-10-15',city:'Singapore',venue:'National Stadium'},{date:'2025-11-05',city:'Tokyo',venue:'Tokyo Dome'},{date:'2025-09-20',city:'Los Angeles',venue:'Crypto.com Arena'},{date:'2025-12-02',city:'London',venue:'O2 Arena'},{date:'2025-09-28',city:'Seoul',venue:'Jamsil Stadium'}];
+    const tourList=$('#tourList'), searchCity=$('#searchCity'), sortBy=$('#sortBy');
+    function renderTours(){
+      const q=(searchCity.value||'').toLowerCase(); const s=sortBy.value;
+      let items=tours.filter(t=>t.city.toLowerCase().includes(q));
+      items.sort((a,b)=> s==='city'?a.city.localeCompare(b.city):a.date.localeCompare(b.date));
+      tourList.innerHTML=items.map(t=>`<div class="item">
+        <div><strong>${new Date(t.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}</strong></div>
+        <div class="sub">${t.city} — ${t.venue}</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="calbtn" data-date="${t.date}" data-title="Justin Bieber — ${t.city}" data-desc="Live at ${t.venue}">Add to Calendar</button>
+          <a class="iconbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(t.venue+' '+t.city)}">Map</a>
+        </div>
+      </div>`).join('') || '<p>No matching shows (demo).</p>';
+    }
+    renderTours(); searchCity.addEventListener('input',renderTours); sortBy.addEventListener('change',renderTours);
+    function ics({title,description,dateStr,durationHrs=2}){const s=new Date(dateStr+'T19:30:00'),e=new Date(s.getTime()+durationHrs*3600000);
+      const pad=n=>String(n).padStart(2,'0'),dt=d=>`${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+      const uid=`${Date.now()}@belieber.hq`,ics=['BEGIN:VCALENDAR','VERSION:2.0','CALSCALE:GREGORIAN','BEGIN:VEVENT',`UID:${uid}`,`DTSTAMP:${dt(new Date())}`,`DTSTART:${dt(s)}`,`DTEND:${dt(e)}`,`SUMMARY:${title}`,`DESCRIPTION:${description}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+      const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`${title.replace(/[^a-z0-9]+/gi,'-').toLowerCase()}.ics`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);}
+    tourList.addEventListener('click',e=>{const b=e.target.closest('.calbtn'); if(!b) return; ics({title:b.dataset.title,description:b.dataset.desc,dateStr:b.dataset.date});});
+
+    /* ========= Newsletter & notes ========= */
+    $('#newsletterForm').addEventListener('submit',e=>{e.preventDefault(); const email=$('#email').value.trim(); const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); if(!ok){alert('Please enter a valid email.');return;} const k='belieber_emails'; const list=JSON.parse(localStorage.getItem(k)||'[]'); if(!list.includes(email)) list.push(email); localStorage.setItem(k,JSON.stringify(list)); $('#email').value=''; alert('Thanks for joining!');});
+    const notesDiv=$('#notes'), noteKey='belieber_notes_v1';
+    function renderNotes(){const items=JSON.parse(localStorage.getItem(noteKey)||'[]'); notesDiv.innerHTML=items.slice().reverse().map(n=>`<div class="note"><div><span class="name">${n.name||'Anonymous'}</span> <span class="ts">· ${new Date(n.ts).toLocaleString()}</span></div><div class="msg">${n.message}</div></div>`).join('');}
+    renderNotes();
+    $('#noteForm').addEventListener('submit',e=>{e.preventDefault(); const name=$('#name').value.trim(), message=$('#message').value.trim(); if(!message) return; const items=JSON.parse(localStorage.getItem(noteKey)||'[]'); items.push({name,message,ts:Date.now()}); localStorage.setItem(noteKey,JSON.stringify(items)); $('#message').value=''; renderNotes();});
+  </script>
+</body>
+</html>
