@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#select-table {
+    margin: auto;
+}
+
+img {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    /* border: 3px solid blue; */
+    margin-bottom: 5px;
+}
+
+.column {
+    display: flex;
+    /* border: 1px solid red; */
+    margin: 5px;
+}
