@@ -1,0 +1,244 @@
+
+<html>
+<head>
+    <title>Drinks API</title>
+</head>
+<body>
+
+    <h1>Drinks API</h1>
+    <p>
+        IMPORTANT NOTE: This local-only Drinks API hosts data obtained from https://www.thecocktaildb.com/api.php. Please do NOT use this local-only Drinks API for production or commercial use. For production or commercial use, please visit https://www.thecocktaildb.com/api.php and check its terms and conditions. The use of this local-only Drinks API is limited to IS216 learning purposes.
+    </p>
+    
+    
+    
+    <hr>
+    
+    
+    <h2>read</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a collection of drinks in JSON format.
+    </p>
+    <p>
+        <b>HTTP request</b>
+        <br>
+        <table border='1'>
+            <tr>
+                <th>Mode</th>
+                <th>Method</th>
+                <th>API Endpoint URL</th>
+            </tr>
+
+            <tr>
+                <td>Local</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                    <br>
+                    <font color="blue" face="courier">
+                        http://localhost/DrinksAPI/api/drink/read.php
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </p>
+
+
+
+    <hr>
+
+
+
+    <h2>category</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns all drink categories in JSON format.
+    </p>
+    <p>
+        <b>HTTP request</b>
+        <br>
+        <table border='1'>
+            <tr>
+                <th>Mode</th>
+                <th>Method</th>
+                <th>API Endpoint URL</th>
+            </tr>
+
+            <tr>
+                <td>Local</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                    <br>
+                    <font color="blue" face="courier">
+                        http://localhost/DrinksAPI/api/drink/category.php
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </p>
+
+
+
+    <hr>
+
+    
+
+    <h2>search</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a collection of drinks matching the search query in JSON format.
+    </p>
+    <p>
+        <b>HTTP request</b>
+
+        <ul>
+
+            <li>
+                Return all drinks that are either <b>alcoholic</b> or <b>nonalcoholic</b>
+                <br>
+
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/DrinksAPI/api/drink/search.php?a=alcoholic
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+                
+                <br>
+                where <b>a</b> is the <b>alcoholic</b> parameter, and the following two are valid values (case-insensitive)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alcoholic<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nonalcoholic
+            </li>
+
+            <br><br>
+
+            <li>
+                Return all drinks whose <b>category</b> is the <b>specified category</b>
+
+                <br>
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/DrinksAPI/api/drink/search.php?c=beer
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                where <b>c</b> is the <b>category</b> parameter <br>
+                (e.g. 'beer' will return all drinks whose category is beer - and the search will be done in a case-insensitive manner)
+            </li>
+
+            <br><br>
+
+            <li>
+                Return all drinks whose <b>name</b> contains the <b>specified input</b>
+
+                <br>
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/DrinksAPI/api/drink/search.php?n=cor
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                where <b>n</b> is the <b>name</b> parameter <br>
+                (e.g. 'cor' will return all drinks whose name contains 'cor' as a substring in a case-insensitive manner)
+            </li>
+
+            <br><br>
+
+            <li>
+                Return all drinks with matching: <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>category</b> user input <i>and</i> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>alcoholic</b> user input <i>and</i> <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> user input (substring search) <br>
+
+                <br>
+
+                <b>NOTE</b>: All three parameters are <b>optional</b>.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;If you omit any parameter, that filter is not applied. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;If you omit all three parameters, this endpoint behaves the same as the read endpoint (returns all drinks). <br>
+
+                <br>
+
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>DrinksAPI</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/DrinksAPI/api/drink/search.php?c=shake&a=alcoholic&n=jam
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                where <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>c</b> is the <b>category</b> parameter <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>a</b> is the <b>alcoholic</b> parameter <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<b>n</b> is the <b>name</b> parameter (substring) <br>
+                (search will be done in a case-insensitive manner)
+            </li>
+
+        </ul>
+    </p>
+    
+    <hr>
+    
+    <footer>&copy; Copyright 2025 Krazy Company</footer>
+</body>
+</html>

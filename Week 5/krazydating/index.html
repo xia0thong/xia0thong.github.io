@@ -1,0 +1,310 @@
+
+<html>
+<head>
+    <title>KrazyDating API Documentation</title>
+</head>
+<body>
+
+    <h1>KrazyDating API v1.1 - Documentation</h1>
+    
+    <hr>
+    
+    
+    <h2>read</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a collection of user profiles in JSON format.
+    </p>
+    <p>
+        <b>HTTP request</b>
+        <br>
+        <table border='1'>
+            <tr>
+                <th>Mode</th>
+                <th>Method</th>
+                <th>API Endpoint URL</th>
+            </tr>
+
+            <tr>
+                <td>Remote</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    <font color="blue" face="courier">
+                        http://krazywoman.com/krazydating/api/profile/read.php
+                    </font>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Local</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                    <br>
+                    <font color="blue" face="courier">
+                        http://localhost/krazydating/api/profile/read.php
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </p>
+
+
+    
+    <hr>
+
+
+    <h2>random</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a randomly selected user profile whose gender is the <b>specified gender</b>
+    </p>
+    <p>
+        <b>HTTP request</b>
+        <br>
+
+        <table border='1'>
+            <tr>
+                <th>Mode</th>
+                <th>Method</th>
+                <th>API Endpoint URL</th>
+            </tr>
+
+            <tr>
+                <td>Remote</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    <font color="blue" face="courier">
+                        http://krazywoman.com/krazydating/api/profile/random.php?g=m
+                    </font>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Local</td>
+                <td><font color="red" face="courier">GET</font></td>
+                <td>
+                    Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                    <br>
+                    <font color="blue" face="courier">
+                        http://localhost/krazydating/api/profile/random.php?g=m
+                    </font>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        where <b>g</b> is the <b>gender</b> parameter, and<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f (or F) indicates female<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m (or M) indicates male
+    </p>
+
+
+    <hr>
+
+
+    <h2>authenticate</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a matching user profile whose email and password are found in the database and are valid
+    </p>
+    <p>
+        <b>HTTP request</b>
+        <br>
+
+        <table border='1'>
+            <tr>
+                <th>Mode</th>
+                <th>Method</th>
+                <th>API Endpoint URL</th>
+            </tr>
+
+            <tr>
+                <td>Remote</td>
+                <td><font color="red" face="courier">POST</font></td>
+                <td>
+                    <font color="blue" face="courier">
+                        http://krazywoman.com/krazydating/api/profile/authenticate.php
+                    </font>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Local</td>
+                <td><font color="red" face="courier">POST</font></td>
+                <td>
+                    Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                    <br>
+                    <font color="blue" face="courier">
+                        http://localhost/krazydating/api/profile/authenticate.php
+                    </font>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        Parameters are:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email (e.g. sean.choy@email.com)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password (e.g. corresponding password in String)
+    </p>
+    
+    
+
+    <hr>
+
+    
+    <h2>search</h2>
+    <p>
+        <b>Description</b>
+        <br>
+        Returns a collection of user profiles matching the search query in JSON format.
+    </p>
+    <p>
+        <b>HTTP request</b>
+
+        <ul>
+
+            <li>
+                Return all user profiles whose gender is the <b>specified gender</b>
+                <br>
+
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Remote</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            <font color="blue" face="courier">
+                                http://krazywoman.com/krazydating/api/profile/search.php?g=f
+                            </font>
+                        </td>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/krazydating/api/profile/search.php?g=f
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+                
+                <br>
+                where <b>g</b> is the <b>gender</b> parameter, and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f (or F) indicates female<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m (or M) indicates male
+            </li>
+
+            <br>
+
+            <li>
+                Return all user profiles whose <b>age</b> is within the specified age range (lower-bound & upper-bound).
+                <br>
+                <font color="purple"><b>Lower-Bound</b></font> <= <b>age</b> <= <font color="purple"><b>upper-Bound</b></font>
+
+                <br>
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Remote</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            <font color="blue" face="courier">
+                                http://krazywoman.com/krazydating/api/profile/search.php?lower=20&upper=25
+                            </font>
+                        </td>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/krazydating/api/profile/search.php?lower=20&upper=25
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                where:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>lower</b> is the <b>lower-bound age</b> parameter (non-negative Integer), and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>upper</b> is the <b>upper-bound age</b> parameter (non-negative Integer)
+            </li>
+
+            <br>
+
+            <li>
+                Return all user profiles whose:
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gender is the <b>specified gender</b>, and <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>age</b> is within the specified age range (lower-bound & upper-bound).
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="purple"><b>Lower-Bound</b></font> <= <b>age</b> <= <font color="purple"><b>upper-Bound</b></font>
+
+                <br>
+
+                <table border='1'>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Method</th>
+                        <th>API Endpoint URL</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Remote</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            <font color="blue" face="courier">
+                                http://krazywoman.com/krazydating/api/profile/search.php?g=m&lower=20&upper=25
+                            </font>
+                        </td>
+                    </tr>
+        
+                    <tr>
+                        <td>Local</td>
+                        <td><font color="red" face="courier">GET</font></td>
+                        <td>
+                            Assume <b>krazydating</b> folder is placed under <b>&#60;webroot&#62;</b>
+                            <br>
+                            <font color="blue" face="courier">
+                                http://localhost/krazydating/api/profile/search.php?g=m&lower=20&upper=25
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                where:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>g</b> is the <b>gender</b> parameter ('f' or 'F' for female, 'm' or 'M' for male), and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>lower</b> is the <b>lower-bound age</b> parameter (non-negative Integer), and<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>upper</b> is the <b>upper-bound age</b> parameter (non-negative Integer)
+            </li>
+
+        </ul>
+    </p>
+    
+    <hr>
+    
+    <footer>&copy; Copyright 2025 Krazy Company</footer>
+</body>
+</html>
